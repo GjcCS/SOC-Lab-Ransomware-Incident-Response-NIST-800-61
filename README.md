@@ -1,0 +1,1 @@
+# SOC-Lab-Ransomware-Incident-Response-NIST-800-61
