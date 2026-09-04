@@ -60,9 +60,8 @@ Before executing the simulation, the environment was validated:
 - MDE data connector linked to the `law-soc-lab-ir` Sentinel workspace
 - Live Response capability enabled at the tenant level (`Settings > Endpoints > Advanced features`)
 
-📸 `Project-7/01-preparation/`
-- `live-response-enabled.png`
-- `sentinel-workspace-connected.png`
+![Live Response enabled](Project-7/01-preparation/live-response-enabled.png)
+![Sentinel workspace connected](Project-7/01-preparation/sentinel-workspace-connected.png)
 
 ---
 
@@ -72,8 +71,8 @@ Before executing the simulation, the environment was validated:
 
 After running the test, the `.akira` files and the ransom note were visible directly on the file system.
 
-📸 `Project-7/02-detection-analysis/akira-test-files-explorer.png`
-📸 `Project-7/02-detection-analysis/ransom-note-desktop-icon.png`
+![Akira test files explorer](Project-7/02-detection-analysis/akira-test-files-explorer.png)
+![Ransom note desktop icon](Project-7/02-detection-analysis/ransom-note-desktop-icon.png)
 
 ### Finding #1: DeviceFileEvents did not capture the mass file creation
 
@@ -105,8 +104,8 @@ DeviceProcessEvents
 
 This returned a single `powershell.exe` process event containing the entire script: a `{1..100}` loop generating randomized-content files with the `.akira` extension, followed by a series of `echo` commands writing the ransom note line by line.
 
-📸 `Project-7/02-detection-analysis/device-process-events-query-result.png`
-📸 `Project-7/02-detection-analysis/device-process-events-full-commandline.png`
+![Device process events query result](Project-7/02-detection-analysis/device-process-events-query-result.png)
+![Device process events full commandline](Project-7/02-detection-analysis/device-process-events-full-commandline.png)
 
 ### Finding #3: The ransom note was fully captured in DeviceFileEvents
 
@@ -122,8 +121,8 @@ DeviceFileEvents
 
 The result showed one `FileCreated` event followed by a rapid sequence of `FileModified` events, one per line written to the file, matching the structure of the ransom note script.
 
-📸 `Project-7/02-detection-analysis/device-file-events-ransom-note-timeline.png`
-📸 `Project-7/02-detection-analysis/ransom-note-content.png`
+![Device file events ransom note timeline](Project-7/02-detection-analysis/device-file-events-ransom-note-timeline.png)
+![Ransom note content](Project-7/02-detection-analysis/ransom-note-content.png)
 
 ### Detection query used for this incident
 
@@ -150,9 +149,9 @@ Get-ChildItem 'C:\' -Filter '*.akira' | Remove-Item -Force
 Remove-Item 'C:\Users\admin1\Desktop\akira_readme.txt' -Force
 ```
 
-📸 `Project-7/03-containment-eradication-recovery/akira-files-before-eradication.png`
-📸 `Project-7/03-containment-eradication-recovery/akira-files-after-eradication.png`
-📸 `Project-7/03-containment-eradication-recovery/ransom-note-removed-desktop.png`
+![Akira files before eradication](Project-7/03-containment-eradication-recovery/akira-files-before-eradication.png)
+![Akira files after eradication](Project-7/03-containment-eradication-recovery/akira-files-after-eradication.png)
+![Ransom note removed desktop](Project-7/03-containment-eradication-recovery/ransom-note-removed-desktop.png)
 
 A process check confirmed no malicious activity remained active on the system:
 
@@ -160,7 +159,7 @@ A process check confirmed no malicious activity remained active on the system:
 Get-Process powershell -ErrorAction SilentlyContinue
 ```
 
-📸 `Project-7/03-containment-eradication-recovery/no-malicious-process-active.png`
+![No malicious process active](Project-7/03-containment-eradication-recovery/no-malicious-process-active.png)
 
 ### Containment
 
@@ -173,9 +172,9 @@ With the system confirmed clean, the device was isolated from MDE as the documen
 
 The isolation effect was confirmed live: the active RDP session dropped immediately after the action completed, verifying that network isolation was actually enforced, not just reported as successful in the portal.
 
-📸 `Project-7/03-containment-eradication-recovery/isolate-device-comment-confirm.png`
-📸 `Project-7/03-containment-eradication-recovery/isolate-device-action-completed.png`
-📸 `Project-7/03-containment-eradication-recovery/rdp-connection-lost-isolation-effect.png`
+![Isolate device comment confirm](Project-7/03-containment-eradication-recovery/isolate-device-comment-confirm.png)
+![Isolate device action completed](Project-7/03-containment-eradication-recovery/isolate-device-action-completed.png)
+![Rdp connection lost isolation effect](Project-7/03-containment-eradication-recovery/rdp-connection-lost-isolation-effect.png)
 
 ### Recovery
 
@@ -186,7 +185,7 @@ In a production environment, recovery would include full system integrity scanni
 - Submission time: Sep 3, 2026, 11:12 AM
 - Status: Completed
 
-📸 `Project-7/03-containment-eradication-recovery/release-from-isolation-completed.png`
+![Release from isolation completed](Project-7/03-containment-eradication-recovery/release-from-isolation-completed.png)
 
 Total time from containment to recovery closure: **5 minutes**.
 
